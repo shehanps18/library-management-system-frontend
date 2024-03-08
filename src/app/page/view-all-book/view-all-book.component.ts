@@ -29,14 +29,14 @@ export class ViewAllBookComponent implements OnInit {
         console.log(this.bookList);
       });
   }
-  public removeBook(book: any) {
-    let apiUrl = "http://localhost:8080/book/delete/" + book.id;
+  public removeBook() {
+    let apiUrl = "http://localhost:8080/book/delete/" + this.selectedBook.id;
     this.http.delete(apiUrl)
       .subscribe(data => {
-        console.log(data)
+        console.log(data);
+        this.loadBooks();
+        this.selectedBook=null;
       });
-    console.log(book);
-    this.loadBooks();
     
   }
   // deleteBook({ book }: { book: any; }) {
@@ -56,4 +56,5 @@ export class ViewAllBookComponent implements OnInit {
         
       });
   }
+
 }
