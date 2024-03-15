@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewAllBookComponent } from './view-all-book.component';
+import { NavComponent } from '../../common/nav/nav.component';
 
 describe('ViewAllBookComponent', () => {
   let component: ViewAllBookComponent;
@@ -8,7 +9,7 @@ describe('ViewAllBookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewAllBookComponent]
+      imports: [ViewAllBookComponent,NavComponent]
     })
     .compileComponents();
     

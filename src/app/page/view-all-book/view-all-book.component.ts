@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavComponent } from "../../common/nav/nav.component";
 
 
 
 @Component({
-  selector: 'app-view-all-book',
-  standalone: true,
-  imports: [HttpClientModule, FormsModule, CommonModule],
-  templateUrl: './view-all-book.component.html',
-  styleUrl: './view-all-book.component.css'
+    selector: 'app-view-all-book',
+    standalone: true,
+    templateUrl: './view-all-book.component.html',
+    styleUrl: './view-all-book.component.css',
+    imports: [HttpClientModule, FormsModule, CommonModule, NavComponent]
 })
 export class ViewAllBookComponent implements OnInit {
   private http;
