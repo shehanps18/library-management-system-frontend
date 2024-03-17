@@ -14,13 +14,92 @@
         <tbody>
             <tr *ngFor="let user of userList">
                 <td>{{user.id}}</td>
-                <td>{{ user.name }}</td>
+                <td>{{ user.firstName+" "+user.lastName + " ("+ user.userName+")"}}</td>
                 <td>{{ user.address }}</td>
                 <td>{{ user.address2 }}</td>
                 <td>{{ user.country }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.phoneNumber }}</td>
+                <td><button type="button" class="btn btn-primary" (click)="setSelectedUser(user)" data-bs-toggle="modal" data-bs-target="#updateModal"
+                        data-bs-whatever="@getbootstrap"><i class="bi bi-pencil-square"></i></button>
+                </td>
+                <td><button type="button" (click)="setSelectedUser(user)" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"><i class="bi bi-trash3-fill"></i></button></td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<!-- update modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">ID</label>
+              <input type="text" [(ngModel)]="selectedUser.id" [ngModelOptions]="{standalone:true}" 
+              class="form-control" disabled="" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">First Name:</label>
+              <input type="text"[(ngModel)]="selectedUser.firstName" [ngModelOptions]="{standalone:true}"
+               class="form-control"  id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Last Name:</label>
+              <input type="text" [(ngModel)]="selectedUser.lastName" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">User Name:</label>
+              <input type="text" [(ngModel)]="selectedUser.userName" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipientAuthor">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">E-mail:</label>
+              <input type="text" [(ngModel)]="selectedUser.email" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipientCategory">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Address 1:</label>
+              <input type="number" [(ngModel)]="selectedUser.address1" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipientQty">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Address 2:</label>
+                <input type="number" [(ngModel)]="selectedUser.address2" [ngModelOptions]="{standalone:true}"
+                  class="form-control" id="recipientQty">
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="saveUser()" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--remove  Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body p-4 text-center">
+          <h5 class="mb-0">Confirm Remove Action?</h5>
+          <p class="mb-0">You can't revert this action</p>
+        </div>
+        <div class="modal-footer flex-nowrap p-0">
+          <button type="button" (click)="removeUser()"
+            class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" data-bs-dismiss="modal"><strong>Yes,
+              Delete</strong></button>
+          <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0"
+            data-bs-dismiss="modal">No thanks</button>
+        </div>
+      </div>
+    </div>
+  </div>

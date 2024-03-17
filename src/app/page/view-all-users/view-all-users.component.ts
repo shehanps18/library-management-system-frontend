@@ -18,12 +18,43 @@ export class ViewAllUsersComponent implements OnInit {
   ngOnInit(): void {
     this.loadUsers();
   }
+  
+  private baseUrl:String = "http://localhost:8081";
+
+  public selectedUser:any={
+    "id":null,
+    "firstName":null,
+    "lastName": null,
+    "userName":null,
+    "email":null,
+    "address1": null,
+    "address2":null,
+    "country": null,
+    "phoneNumber":null
+  }
+
   loadUsers() {
     this.http.get("http://localhost:8081/user/get-all-users").
       subscribe((res: any) => {
         console.log(res);
         this.userList=res;
       })
+  }
+
+  public saveUser(){
+
+  }
+
+  public removeUser(){
+    this.http.delete(this.baseUrl+"/user/delete/"+this.selectedUser.id).
+    subscribe(data=>{
+      console.log(data);
+      this.loadUsers();
+    });
+  }
+  
+  setSelectedUser(user:any){
+    this.selectedUser=user;
   }
 
 
