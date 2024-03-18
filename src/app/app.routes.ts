@@ -24,5 +24,10 @@ export const routes: Routes = [
     {
         path: "view-all-users",
         component: ViewAllUsersComponent
+    },
+    {
+        path: "",
+        redirectTo: "logIn",
+        pathMatch: "full"
     }
 ];

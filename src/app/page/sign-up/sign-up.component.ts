@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,20 +20,19 @@ export class SignUpComponent implements OnInit {
   public selectedCountryCode:any;
   public isExistUser: any;
 
-  public userObj = {
-    firstName: null,
-    lastName: null,
-    userName: null,
-    email: null,
-    address1: null,
-    address2: null,
-    country: null,
-    phoneNumber: null
-  }
 
-
-
-  constructor(private httpClient: HttpClient) {
+     public userObj = {
+      firstName: null,
+      lastName: null,
+      userName: null,
+      email: null,
+      address1: null,
+      address2: null,
+      country: null,
+      phoneNumber: null
+    }
+    
+    constructor(private httpClient: HttpClient, public router:Router) {
     this.http = httpClient;
 
   }
@@ -63,6 +63,7 @@ export class SignUpComponent implements OnInit {
           text: `${this.userObj.userName} has been registered`,
           icon: 'success'
         })
+        this.router.navigate(['/logIn']);
       })
     } else {
       Swal.fire({
@@ -71,6 +72,7 @@ export class SignUpComponent implements OnInit {
         icon: 'error'
       })
     }
+    this.userObj;
   }
 
   setSelectedCountry(country: any) {

@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from "../../common/nav/nav.component";
+import { Router } from '@angular/router';
 
 
 
@@ -17,7 +18,7 @@ export class ViewAllBookComponent implements OnInit {
   private http;
   public selectedBook: any;
   bookList: any[] = [];
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, public router:Router) {
     this.http = httpClient;
   }
   ngOnInit(): void {
