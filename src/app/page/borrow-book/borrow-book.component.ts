@@ -1,16 +1,68 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../../common/nav/nav.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-borrow-book',
   standalone: true,
-  imports: [HttpClientModule, FormsModule,CommonModule,NavComponent],
+  imports: [HttpClientModule, FormsModule, CommonModule, NavComponent],
   templateUrl: './borrow-book.component.html',
   styleUrl: './borrow-book.component.css'
 })
 export class BorrowBookComponent {
+  public user: any;
+  public bookRes: any;
+  public cartList:any=[];
+
+  public userName: String = "";
+
+  public borrowBook: any = {
+    userId: "",
+    bookId: "",
+    date: new Date(),
+    fine: "",
+    qty: ""
+  }
+  bookId: any = null;
+
+  constructor(private http: HttpClient) {
+    this.http = http;
+  }
+
+
+  searchUser() {
+    console.log(this.userName);
+    this.http.get("http://localhost:8081/user/find-user-name/" + this.userName).subscribe((data) => {
+      console.log(data);
+      this.user = data;
+    })
+  }
+  searchBook() {
+    this.http.get(`http://localhost:8080/book/search/${this.bookId}`).subscribe(res => {
+      console.log(res);
+      this.bookRes = res;
+      Swal.fire({
+        title: `"${this.bookRes.title}" Do you want to get this book?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: `No`
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire("Saved!", "", "success");
+          this.cartList.push(this.bookRes);
+          this.bookRes={};
+          console.log(this.cartList);
+          
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    })
+  }
 
 }
