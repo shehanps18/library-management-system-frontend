@@ -5,7 +5,7 @@
             [ngModelOptions]="{standalone:true}">
         <button class="btn btn-outline-success" type="submit" (click)="searchUser()">Search</button>
     </div>
-    <table class="table table-bordered mt-2">
+    <table class="table table-bordered mt-2" *ngIf="user" >
         <thead>
             <th>User name</th>
             <th>E-mail</th>
@@ -26,7 +26,7 @@
             [ngModelOptions]="{standalone:true}">
         <button class="btn btn-outline-success" type="submit" (click)="searchBook()">Search Book</button>
     </div>
-    <table class="table table-bordered mt-2">
+    <table class="table table-bordered mt-2" *ngIf="bookRes">
         <thead>
             <th>ID</th>
             <th>ISBN</th>
@@ -43,5 +43,6 @@
                 <td>{{book.categorys}}</td>
             </tr>
         </tbody>
+        <button class="btn btn-outline-success mt-2" type="submit"  (click)="borrowBooks()" >Borrow Book</button>
     </table>
 </div>

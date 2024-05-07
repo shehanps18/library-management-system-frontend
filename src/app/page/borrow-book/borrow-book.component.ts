@@ -15,17 +15,11 @@ import Swal from 'sweetalert2';
 export class BorrowBookComponent {
   public user: any;
   public bookRes: any;
-  public cartList:any=[];
+  public cartList: any = [];
 
   public userName: String = "";
 
-  public borrowBook: any = {
-    userId: "",
-    bookId: "",
-    date: new Date(),
-    fine: "",
-    qty: ""
-  }
+
   bookId: any = null;
 
   constructor(private http: HttpClient) {
@@ -55,14 +49,38 @@ export class BorrowBookComponent {
         if (result.isConfirmed) {
           Swal.fire("Saved!", "", "success");
           this.cartList.push(this.bookRes);
-          this.bookRes={};
+          this.bookRes = {};
           console.log(this.cartList);
-          
+
         } else if (result.isDenied) {
           Swal.fire("Changes are not saved", "", "info");
         }
       });
     })
+  }
+
+  bookIds: any = [];
+
+  loadBookIds() {
+    this.cartList.forEach((element: any) => {
+      this.bookIds.push(element.id);
+    });
+  }
+
+  borrowBooks() {
+    this.loadBookIds();
+    const borrowBook: any = {
+      borrowId: this.user.id,
+      books: this.bookIds,
+      date: new Date(),
+      fine: ""
+    }
+    console.log(borrowBook);
+    this.http.post("http://localhost:8082/add-borrow-details", borrowBook).subscribe((res) => {
+      console.log(res);
+
+    })
+
   }
 
 }
